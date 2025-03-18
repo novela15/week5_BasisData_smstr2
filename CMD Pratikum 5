@@ -1,0 +1,165 @@
+Microsoft Windows [Version 10.0.22631.5039]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\lenovo>CD C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 254
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use nopel;
+Database changed
+MariaDB [nopel]> Create table mahasiswa (
+    -> NIM char(9) primary key not null,
+    -> nama varchar(30) not null,
+    -> alamat varchar(30) not null
+    -> );
+Query OK, 0 rows affected (0.042 sec)
+
+MariaDB [nopel]> insert into mahasiswa (NIM, nama, alamat) values
+    -> ('214002001', 'budi', 'bandung'),
+    -> ('214002002', 'ahmad', 'semarang'),
+    -> ('214002003', 'andi', 'jakarta'),
+    -> ('214002004', 'joko', 'padang'),
+    -> ('214002005', 'rani', 'jakarta'),
+    -> ('214002006', 'kenta', 'bandung'),
+    -> ('214002007', 'indah', 'semarang');
+Query OK, 7 rows affected (0.010 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [nopel]> desc mahasiswa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| NIM    | char(9)     | NO   | PRI | NULL    |       |
+| nama   | varchar(30) | NO   |     | NULL    |       |
+| alamat | varchar(30) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.053 sec)
+
+MariaDB [nopel]> select * from mahasiswa;
++-----------+-------+----------+
+| NIM       | nama  | alamat   |
++-----------+-------+----------+
+| 214002001 | budi  | bandung  |
+| 214002002 | ahmad | semarang |
+| 214002003 | andi  | jakarta  |
+| 214002004 | joko  | padang   |
+| 214002005 | rani  | jakarta  |
+| 214002006 | kenta | bandung  |
+| 214002007 | indah | semarang |
++-----------+-------+----------+
+7 rows in set (0.001 sec)
+
+MariaDB [nopel]> CREATE TABLE peminjaman (
+    -> id_peminjaman INTEGER PRIMARY KEY AUTO_INCREMENT,
+    -> nim CHAR(9) NOT NULL,
+    -> buku VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [nopel]> desc peminjaman;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id_peminjaman | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nim           | char(9)      | NO   |     | NULL    |                |
+| buku          | varchar(100) | NO   |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.079 sec)
+
+MariaDB [nopel]> INSERT INTO peminjaman (nim, buku) VALUES
+    -> ('214002001', 'Buku Psikologi Klinis'),
+    -> ('214002002', 'Buku Biologi'),
+    -> ('214002003', 'Buku Kimia'),
+    -> ('214002005', 'Buku Teknik Kelistrikan'),
+    -> ('214002006', 'Buku Teknik Bangunan'),
+    -> ('214002010', 'Buku Dasar-dasar Pemrogaman'),
+    -> ('214002011', 'Buku Fisika');
+Query OK, 7 rows affected (0.011 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [nopel]> select * from peminjaman;
++---------------+-----------+-----------------------------+
+| id_peminjaman | nim       | buku                        |
++---------------+-----------+-----------------------------+
+|             1 | 214002001 | Buku Psikologi Klinis       |
+|             2 | 214002002 | Buku Biologi                |
+|             3 | 214002003 | Buku Kimia                  |
+|             4 | 214002005 | Buku Teknik Kelistrikan     |
+|             5 | 214002006 | Buku Teknik Bangunan        |
+|             6 | 214002010 | Buku Dasar-dasar Pemrogaman |
+|             7 | 214002011 | Buku Fisika                 |
++---------------+-----------+-----------------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [nopel]> SELECT * FROM mahasiswa INNER JOIN peminjaman ON mahasiswa.nim = peminjaman.nim;
++-----------+-------+----------+---------------+-----------+-------------------------+
+| NIM       | nama  | alamat   | id_peminjaman | nim       | buku                    |
++-----------+-------+----------+---------------+-----------+-------------------------+
+| 214002001 | budi  | bandung  |             1 | 214002001 | Buku Psikologi Klinis   |
+| 214002002 | ahmad | semarang |             2 | 214002002 | Buku Biologi            |
+| 214002003 | andi  | jakarta  |             3 | 214002003 | Buku Kimia              |
+| 214002005 | rani  | jakarta  |             4 | 214002005 | Buku Teknik Kelistrikan |
+| 214002006 | kenta | bandung  |             5 | 214002006 | Buku Teknik Bangunan    |
++-----------+-------+----------+---------------+-----------+-------------------------+
+5 rows in set (0.003 sec)
+
+MariaDB [nopel]> SELECT * FROM mahasiswa LEFT JOIN peminjaman ON mahasiswa.nim = peminjaman.nim;
++-----------+-------+----------+---------------+-----------+-------------------------+
+| NIM       | nama  | alamat   | id_peminjaman | nim       | buku                    |
++-----------+-------+----------+---------------+-----------+-------------------------+
+| 214002001 | budi  | bandung  |             1 | 214002001 | Buku Psikologi Klinis   |
+| 214002002 | ahmad | semarang |             2 | 214002002 | Buku Biologi            |
+| 214002003 | andi  | jakarta  |             3 | 214002003 | Buku Kimia              |
+| 214002005 | rani  | jakarta  |             4 | 214002005 | Buku Teknik Kelistrikan |
+| 214002006 | kenta | bandung  |             5 | 214002006 | Buku Teknik Bangunan    |
+| 214002004 | joko  | padang   |          NULL | NULL      | NULL                    |
+| 214002007 | indah | semarang |          NULL | NULL      | NULL                    |
++-----------+-------+----------+---------------+-----------+-------------------------+
+7 rows in set (0.027 sec)
+
+MariaDB [nopel]> SELECT * FROM mahasiswa RIGHT JOIN peminjaman ON mahasiswa.nim = peminjaman.nim;
++-----------+-------+----------+---------------+-----------+-----------------------------+
+| NIM       | nama  | alamat   | id_peminjaman | nim       | buku                        |
++-----------+-------+----------+---------------+-----------+-----------------------------+
+| 214002001 | budi  | bandung  |             1 | 214002001 | Buku Psikologi Klinis       |
+| 214002002 | ahmad | semarang |             2 | 214002002 | Buku Biologi                |
+| 214002003 | andi  | jakarta  |             3 | 214002003 | Buku Kimia                  |
+| 214002005 | rani  | jakarta  |             4 | 214002005 | Buku Teknik Kelistrikan     |
+| 214002006 | kenta | bandung  |             5 | 214002006 | Buku Teknik Bangunan        |
+| NULL      | NULL  | NULL     |             6 | 214002010 | Buku Dasar-dasar Pemrogaman |
+| NULL      | NULL  | NULL     |             7 | 214002011 | Buku Fisika                 |
++-----------+-------+----------+---------------+-----------+-----------------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [nopel]> SELECT * FROM mahasiswa LEFT JOIN peminjaman ON mahasiswa.nim = peminjaman.nim
+    -> UNION ALL
+    -> SELECT * FROM mahasiswa RIGHT JOIN peminjaman ON mahasiswa.nim = peminjaman.nim;
++-----------+-------+----------+---------------+-----------+-----------------------------+
+| NIM       | nama  | alamat   | id_peminjaman | nim       | buku                        |
++-----------+-------+----------+---------------+-----------+-----------------------------+
+| 214002001 | budi  | bandung  |             1 | 214002001 | Buku Psikologi Klinis       |
+| 214002002 | ahmad | semarang |             2 | 214002002 | Buku Biologi                |
+| 214002003 | andi  | jakarta  |             3 | 214002003 | Buku Kimia                  |
+| 214002005 | rani  | jakarta  |             4 | 214002005 | Buku Teknik Kelistrikan     |
+| 214002006 | kenta | bandung  |             5 | 214002006 | Buku Teknik Bangunan        |
+| 214002004 | joko  | padang   |          NULL | NULL      | NULL                        |
+| 214002007 | indah | semarang |          NULL | NULL      | NULL                        |
+| 214002001 | budi  | bandung  |             1 | 214002001 | Buku Psikologi Klinis       |
+| 214002002 | ahmad | semarang |             2 | 214002002 | Buku Biologi                |
+| 214002003 | andi  | jakarta  |             3 | 214002003 | Buku Kimia                  |
+| 214002005 | rani  | jakarta  |             4 | 214002005 | Buku Teknik Kelistrikan     |
+| 214002006 | kenta | bandung  |             5 | 214002006 | Buku Teknik Bangunan        |
+| NULL      | NULL  | NULL     |             6 | 214002010 | Buku Dasar-dasar Pemrogaman |
+| NULL      | NULL  | NULL     |             7 | 214002011 | Buku Fisika                 |
++-----------+-------+----------+---------------+-----------+-----------------------------+
+14 rows in set (0.003 sec)
+
+MariaDB [nopel]>
