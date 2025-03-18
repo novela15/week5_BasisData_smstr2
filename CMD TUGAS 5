@@ -1,0 +1,213 @@
+MariaDB [nopel]> Bye
+Ctrl-C -- exit!
+
+C:\xampp\mysql\bin>CD C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 272
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database DBMSS_2420506040;
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| akademik           |
+| dbmss_2420506040   |
+| information_schema |
+| mahasiswa          |
+| mysql              |
+| nopel              |
+| novel              |
+| performance_schema |
+| perusahaan         |
+| phpmyadmin         |
+| pratikum_sql       |
+| siperpus           |
+| test               |
++--------------------+
+13 rows in set (0.029 sec)
+
+MariaDB [(none)]> use DBMSS_2420506040;
+Database changed
+MariaDB [DBMSS_2420506040]> create table TBPegawai (
+    -> nip varchar(5) primary key not null,
+    -> nama varchar(25) not null,
+    -> tgl_lahir date not null,
+    -> Kota varchar(15) not null,
+    -> thn_masuk year(4) not null,
+    -> gol int(1) not null
+    -> );
+Query OK, 0 rows affected (0.052 sec)
+
+MariaDB [DBMSS_2420506040]> desc TBPegawai;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| nip       | varchar(5)  | NO   | PRI | NULL    |       |
+| nama      | varchar(25) | NO   |     | NULL    |       |
+| tgl_lahir | date        | NO   |     | NULL    |       |
+| Kota      | varchar(15) | NO   |     | NULL    |       |
+| thn_masuk | year(4)     | NO   |     | NULL    |       |
+| gol       | int(1)      | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+6 rows in set (0.041 sec)
+
+MariaDB [DBMSS_2420506040]> insert into TBPegawai (nip, nama, tgl_lahir, Kota, thn_masuk, gol) values
+    -> ('001', 'Ahmad Burhanuddin', '1990/12/12', 'Bandung', '2010', '3')
+    -> ;
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [DBMSS_2420506040]> insert into TBPegawai (nip, nama, tgl_lahir, Kota, thn_masuk, gol) values
+    -> ('002', 'Amin Imsyorry', '1989/12/02', 'Ciamis', '2009', '2'),
+    -> ('003', 'Budhy Bungaox', '1989/01/20', 'Tasikmalaya', '2011', '4'),
+    -> ('004', 'Zulkarnaen', '1991/02/20', 'Bandung', '2009', '1'),
+    -> ('005', 'Dewi Sudewa', '1990/12/02', 'Bogor', '2009', '1'),
+    -> ('006', 'Ina Nurlian', '1993/18/09', 'Sumedang', '2011', '4'),
+    -> ('007', 'Cheppy Chardut', '1992/07/10', 'Garut', '2011', '4'),
+    -> ('008', 'Dodong M', '1990/07/10', 'Bandung', '2010', '3'),
+    -> ('009', 'Gadung P', '1990/06/25', 'Bogor', '2009', '2'),
+    -> ('010', 'Agus Wisman', '1993/10/17', 'Garut', '2010', '3');
+Query OK, 9 rows affected, 1 warning (0.007 sec)
+Records: 9  Duplicates: 0  Warnings: 1
+
+MariaDB [DBMSS_2420506040]> create table TBGaji (
+    -> Gol int(1) not null,
+    -> Gapok int(12) not null
+    -> );
+Query OK, 0 rows affected (0.020 sec)
+
+MariaDB [DBMSS_2420506040]> desc TBGaji;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| Gol   | int(1)  | NO   |     | NULL    |       |
+| Gapok | int(12) | NO   |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+2 rows in set (0.032 sec)
+
+MariaDB [DBMSS_2420506040]> Insert Into TBGaji (Gol, Gapok) value
+    -> ('1', '1500000'),
+    -> ('2', '2000000'),
+    -> ('3', '3500000'),
+    -> ('4', '5000000');
+Query OK, 4 rows affected (0.008 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [DBMSS_2420506040]> select * from TBGaji;
++-----+---------+
+| Gol | Gapok   |
++-----+---------+
+|   1 | 1500000 |
+|   2 | 2000000 |
+|   3 | 3500000 |
+|   4 | 5000000 |
++-----+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [DBMSS_2420506040]> select * from TBPegawai;
++-----+-------------------+------------+-------------+-----------+-----+
+| nip | nama              | tgl_lahir  | Kota        | thn_masuk | gol |
++-----+-------------------+------------+-------------+-----------+-----+
+| 001 | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |   3 |
+| 002 | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |   2 |
+| 003 | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |   4 |
+| 004 | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |   1 |
+| 005 | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |   1 |
+| 006 | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |   4 |
+| 007 | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |   4 |
+| 008 | Dodong M          | 1990-07-10 | Bandung     |      2010 |   3 |
+| 009 | Gadung P          | 1990-06-25 | Bogor       |      2009 |   2 |
+| 010 | Agus Wisman       | 1993-10-17 | Garut       |      2010 |   3 |
++-----+-------------------+------------+-------------+-----------+-----+
+10 rows in set (0.001 sec)
+
+MariaDB [DBMSS_2420506040]>  SELECT * FROM TBPegawai INNER JOIN TBGaji ON TBPegawai.gol = TBGaji.gol;
++-----+-------------------+------------+-------------+-----------+-----+-----+---------+
+| nip | nama              | tgl_lahir  | Kota        | thn_masuk | gol | Gol | Gapok   |
++-----+-------------------+------------+-------------+-----------+-----+-----+---------+
+| 001 | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |   3 |   3 | 3500000 |
+| 002 | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |   2 |   2 | 2000000 |
+| 003 | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |   4 |   4 | 5000000 |
+| 004 | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |   1 |   1 | 1500000 |
+| 005 | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |   1 |   1 | 1500000 |
+| 006 | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |   4 |   4 | 5000000 |
+| 007 | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |   4 |   4 | 5000000 |
+| 008 | Dodong M          | 1990-07-10 | Bandung     |      2010 |   3 |   3 | 3500000 |
+| 009 | Gadung P          | 1990-06-25 | Bogor       |      2009 |   2 |   2 | 2000000 |
+| 010 | Agus Wisman       | 1993-10-17 | Garut       |      2010 |   3 |   3 | 3500000 |
++-----+-------------------+------------+-------------+-----------+-----+-----+---------+
+10 rows in set (0.008 sec)
+
+MariaDB [DBMSS_2420506040]>  SELECT * FROM TBPegawai LEFT JOIN TBGaji ON TBPegawai.gol = TBGaji.gol;
++-----+-------------------+------------+-------------+-----------+-----+------+---------+
+| nip | nama              | tgl_lahir  | Kota        | thn_masuk | gol | Gol  | Gapok   |
++-----+-------------------+------------+-------------+-----------+-----+------+---------+
+| 004 | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |   1 |    1 | 1500000 |
+| 005 | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |   1 |    1 | 1500000 |
+| 002 | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |   2 |    2 | 2000000 |
+| 009 | Gadung P          | 1990-06-25 | Bogor       |      2009 |   2 |    2 | 2000000 |
+| 001 | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |   3 |    3 | 3500000 |
+| 008 | Dodong M          | 1990-07-10 | Bandung     |      2010 |   3 |    3 | 3500000 |
+| 010 | Agus Wisman       | 1993-10-17 | Garut       |      2010 |   3 |    3 | 3500000 |
+| 003 | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |   4 |    4 | 5000000 |
+| 006 | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |   4 |    4 | 5000000 |
+| 007 | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |   4 |    4 | 5000000 |
++-----+-------------------+------------+-------------+-----------+-----+------+---------+
+10 rows in set (0.005 sec)
+
+MariaDB [DBMSS_2420506040]>  SELECT * FROM TBPegawai RIGHT JOIN TBGaji ON TBPegawai.gol = TBGaji.gol;
++------+-------------------+------------+-------------+-----------+------+-----+---------+
+| nip  | nama              | tgl_lahir  | Kota        | thn_masuk | gol  | Gol | Gapok   |
++------+-------------------+------------+-------------+-----------+------+-----+---------+
+| 001  | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |    3 |   3 | 3500000 |
+| 002  | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |    2 |   2 | 2000000 |
+| 003  | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |    4 |   4 | 5000000 |
+| 004  | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |    1 |   1 | 1500000 |
+| 005  | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |    1 |   1 | 1500000 |
+| 006  | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |    4 |   4 | 5000000 |
+| 007  | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |    4 |   4 | 5000000 |
+| 008  | Dodong M          | 1990-07-10 | Bandung     |      2010 |    3 |   3 | 3500000 |
+| 009  | Gadung P          | 1990-06-25 | Bogor       |      2009 |    2 |   2 | 2000000 |
+| 010  | Agus Wisman       | 1993-10-17 | Garut       |      2010 |    3 |   3 | 3500000 |
++------+-------------------+------------+-------------+-----------+------+-----+---------+
+10 rows in set (0.004 sec)
+
+MariaDB [DBMSS_2420506040]>  SELECT * FROM TBPegawai LEFT JOIN TBGaji ON TBPegawai.gol = TBGaji.gol
+    -> UNION ALL
+    ->  SELECT * FROM TBPegawai RIGHT JOIN TBGaji ON TBPegawai.gol = TBGaji.gol;
++------+-------------------+------------+-------------+-----------+------+------+---------+
+| nip  | nama              | tgl_lahir  | Kota        | thn_masuk | gol  | Gol  | Gapok   |
++------+-------------------+------------+-------------+-----------+------+------+---------+
+| 004  | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |    1 |    1 | 1500000 |
+| 005  | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |    1 |    1 | 1500000 |
+| 002  | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |    2 |    2 | 2000000 |
+| 009  | Gadung P          | 1990-06-25 | Bogor       |      2009 |    2 |    2 | 2000000 |
+| 001  | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |    3 |    3 | 3500000 |
+| 008  | Dodong M          | 1990-07-10 | Bandung     |      2010 |    3 |    3 | 3500000 |
+| 010  | Agus Wisman       | 1993-10-17 | Garut       |      2010 |    3 |    3 | 3500000 |
+| 003  | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |    4 |    4 | 5000000 |
+| 006  | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |    4 |    4 | 5000000 |
+| 007  | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |    4 |    4 | 5000000 |
+| 001  | Ahmad Burhanuddin | 1990-12-12 | Bandung     |      2010 |    3 |    3 | 3500000 |
+| 002  | Amin Imsyorry     | 1989-12-02 | Ciamis      |      2009 |    2 |    2 | 2000000 |
+| 003  | Budhy Bungaox     | 1989-01-20 | Tasikmalaya |      2011 |    4 |    4 | 5000000 |
+| 004  | Zulkarnaen        | 1991-02-20 | Bandung     |      2009 |    1 |    1 | 1500000 |
+| 005  | Dewi Sudewa       | 1990-12-02 | Bogor       |      2009 |    1 |    1 | 1500000 |
+| 006  | Ina Nurlian       | 0000-00-00 | Sumedang    |      2011 |    4 |    4 | 5000000 |
+| 007  | Cheppy Chardut    | 1992-07-10 | Garut       |      2011 |    4 |    4 | 5000000 |
+| 008  | Dodong M          | 1990-07-10 | Bandung     |      2010 |    3 |    3 | 3500000 |
+| 009  | Gadung P          | 1990-06-25 | Bogor       |      2009 |    2 |    2 | 2000000 |
+| 010  | Agus Wisman       | 1993-10-17 | Garut       |      2010 |    3 |    3 | 3500000 |
++------+-------------------+------------+-------------+-----------+------+------+---------+
+20 rows in set (0.009 sec)
+
+MariaDB [DBMSS_2420506040]>
